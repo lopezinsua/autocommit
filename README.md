@@ -22,7 +22,7 @@ cp .env.example .env   # añade tu GROQ_API_KEY
 ```bash
 # Uso básico — genera el mensaje y pregunta si confirmar
 git add src/indexer.py
-python commit.py
+python autocommit.py
 
 Analizando cambios...
 
@@ -35,13 +35,13 @@ recuperación en documentos con secciones relacionadas.
 [main 3a4f2c1] feat(indexer): add overlap parameter to chunk splitting
 
 # Confirmar automáticamente
-python commit.py --yes
+python autocommit.py --yes
 
 # Mensaje en inglés
-python commit.py --lang en
+python autocommit.py --lang en
 
 # Solo ver el mensaje, sin hacer commit
-python commit.py --dry-run
+python autocommit.py --dry-run
 ```
 
 ---
