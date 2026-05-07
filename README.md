@@ -1,6 +1,6 @@
 # autocommit
 
-Escribir buenos mensajes de commit lleva tiempo y disciplina. commit-ai lee el diff staged y genera el mensaje por ti en formato Conventional Commits. Confirmas o no, y listo.
+Escribir buenos mensajes de commit lleva tiempo y disciplina. autocommit lee el diff staged y genera el mensaje por ti en formato Conventional Commits. Confirmas o no, y listo.
 
 Usa `llama-3.1-8b-instant` via Groq. Necesitas una API key de GroqCloud (gratuita en https://console.groq.com).
 

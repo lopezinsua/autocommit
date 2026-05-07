@@ -28,7 +28,7 @@ def get_staged_diff() -> str:
     return result.stdout
 
 
-def call_openai(diff: str, lang: str) -> str:
+def generate_message(diff: str, lang: str) -> str:
     client = Groq()
     response = client.chat.completions.create(
         model="llama-3.1-8b-instant",
@@ -43,7 +43,7 @@ def call_openai(diff: str, lang: str) -> str:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Genera mensajes de commit con IA.")
+    parser = argparse.ArgumentParser(description="Genera mensajes de commit automáticamente.")
     parser.add_argument("--yes", "-y", action="store_true", help="Confirma sin preguntar")
     parser.add_argument(
         "--lang", default="es", choices=["es", "en"], help="Idioma del mensaje (default: es)"
@@ -63,7 +63,16 @@ def main() -> None:
         print("Aviso: diff muy largo, truncado a 3000 caracteres.")
 
     print("Analizando cambios...")
-    message = call_openai(diff, lang=args.lang)
+
+    try:
+        message = generate_message(diff, lang=args.lang)
+    except Exception as e:
+        print(f"Error al generar el mensaje: {e}")
+        sys.exit(1)
+
+    if not message:
+        print("No se pudo generar un mensaje. Intenta de nuevo.")
+        sys.exit(1)
 
     print(f"\n{message}\n")
 
@@ -72,7 +81,7 @@ def main() -> None:
 
     confirmed = args.yes or input("¿Confirmar commit? [Y/n]: ").strip().lower() in ("", "y")
     if confirmed:
-        subprocess.run(["git", "commit", "-m", message])
+        subprocess.run(["git", "commit", "-m", message], check=False)
 
 
 if __name__ == "__main__":
