@@ -46,6 +46,13 @@ python autocommit.py --dry-run
 
 ---
 
+## How it works
+
+1. **Diff** — runs `git diff --staged` to get the exact changes queued for commit.
+2. **Truncate** — caps the diff at 3000 characters to keep the API call fast and cheap.
+3. **Generate** — sends the diff to Llama 3.1 8B (via Groq) with a system prompt that enforces Conventional Commits format.
+4. **Confirm** — prints the message and asks for confirmation before running `git commit`.
+
 ## Flags
 
 | Flag | Descripción |
@@ -60,3 +67,7 @@ python autocommit.py --dry-run
 
 - Python 3.11+
 - API key de GroqCloud (`GROQ_API_KEY` en `.env`) — gratuita en https://console.groq.com
+
+---
+
+By [López Insua](https://github.com/lopezinsua)
