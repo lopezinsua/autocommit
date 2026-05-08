@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "autocommit"
+version = "1.0.0"
+description = "AI-powered Conventional Commits message generator"
+requires-python = ">=3.11"
+dependencies = [
+    "groq>=1.2.0",
+    "python-dotenv>=1.0.1",
+]
+
+[project.scripts]
+autocommit = "autocommit:main"
+
+[tool.ruff]
+line-length = 100
